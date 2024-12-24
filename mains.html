@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Night Sky</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap');
+        
+        :root {
+            --santa-base-width: clamp(250px, 40vw, 300px);
+            --santa-base-height: clamp(200px, 30vw, 250px);
+            --moon-size: clamp(100px, 15vw, 150px);
+            --gift-size: clamp(60px, 15vw, 100px);
+            --greeting-font-size: clamp(36px, 8vw, 56px);
+            --timer-font-size: clamp(16px, 4vw, 24px);
+            --timer-digit-size: clamp(24px, 6vw, 36px);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            background: linear-gradient(to bottom, #0a0a2a 0%, #1a1a4a 100%);
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .greeting-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1001;
+            text-align: center;
+            width: min(95vw, 800px);
+            padding: 1rem;
+        }
+
+        .countdown {
+            font-family: 'Mountains of Christmas', cursive;
+            color: #ffd700;
+            font-size: var(--timer-font-size);
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: clamp(10px, 2vw, 20px);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            text-shadow: 0 0 5px #ffd700, 0 0 10px #ff69b4;
+            animation: glow 2s infinite alternate;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(5px, 1vw, 10px);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .countdown .timer {
+            display: flex;
+            gap: clamp(5px, 1vw, 10px);
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .countdown .digit {
+            background: rgba(0, 0, 0, 0.8);
+            padding: clamp(5px, 1.5vw, 10px);
+            border-radius: 5px;
+            min-width: clamp(30px, 8vw, 40px);
+            display: inline-block;
+            font-family: 'digital-7', monospace;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            font-size: var(--timer-digit-size);
+            text-align: center;
+            color: #ffd700;
+        }
+
+        .countdown .separator {
+            animation: blink 1s infinite;
+            padding: 0 clamp(2px, 1vw, 5px);
+            font-size: var(--timer-digit-size);
+            color: #ff69b4;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(255, 215, 0, 0.7), 0 0 35px rgba(255, 105, 180, 0.5);
+            }
+        }
+
+        .make-yours-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 16px;
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1rem;
+            background: linear-gradient(45deg, #ff0000, #00ff00);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            z-index: 1002;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+            animation: floatButton 2s infinite ease-in-out;
+        }
+
+        .make-yours-btn:hover {
+            transform: translateX(-50%) scale(1.1);
+            background: linear-gradient(45deg, #00ff00, #ff0000);
+            box-shadow: 0 0 15px rgba(255,255,255,0.8);
+        }
+
+        .share-container {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1002;
+        }
+
+        .share-btn {
+            padding: 8px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .share-btn img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255,255,255,0.8);
+        }
+
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.twitter { background: #1da1f2; color: white; }
+        .share-btn.whatsapp { background: #25d366; }
+        .share-btn.telegram { background: #0088cc; }
+
+        @keyframes floatButton {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @keyframes buttonGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(255,0,0,0.5);
+            }
+            100% {
+                box-shadow: 0 0 15px rgba(0,255,0,0.8);
+            }
+        }
+
+        .greeting {
+            font-family: 'Mountains of Christmas', cursive;
+            color: #fff;
+            font-size: var(--greeting-font-size);
+            text-shadow: 0 0 clamp(5px, 1vw, 10px) rgba(255,255,255,0.8),
+                         0 0 clamp(10px, 2vw, 20px) #ff0000,
+                         0 0 clamp(15px, 3vw, 30px) #00ff00;
+            margin: 0;
+            opacity: 0;
+            animation: greetingAppear 2s forwards,
+                       colorCycle 5s infinite alternate;
+            line-height: 1.4;
+        }
+
+        .greeting span {
+            display: inline-block;
+            animation: letterBounce 2s infinite;
+            animation-timing-function: ease-in-out;
+        }
+
+        @keyframes greetingAppear {
+            0% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(min(-50px, -5vh));
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes letterBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(min(-15px, -2vh)); }
+        }
+
+        @keyframes colorCycle {
+            0% { 
+                text-shadow: 0 0 clamp(5px, 1vw, 10px) rgba(255,255,255,0.8),
+                            0 0 clamp(10px, 2vw, 20px) #ff0000,
+                            0 0 clamp(15px, 3vw, 30px) #00ff00;
+            }
+            50% {
+                text-shadow: 0 0 clamp(5px, 1vw, 10px) rgba(255,255,255,0.8),
+                            0 0 clamp(10px, 2vw, 20px) #00ff00,
+                            0 0 clamp(15px, 3vw, 30px) #0000ff;
+            }
+            100% {
+                text-shadow: 0 0 clamp(5px, 1vw, 10px) rgba(255,255,255,0.8),
+                            0 0 clamp(10px, 2vw, 20px) #0000ff,
+                            0 0 clamp(15px, 3vw, 30px) #ff0000;
+            }
+        }
+
+        .moon {
+            position: fixed;
+            width: var(--moon-size);
+            height: var(--moon-size);
+            background: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 clamp(30px, 5vw, 50px) #ffd700;
+            top: min(10%, 80px);
+            right: min(10%, 80px);
+        }
+
+        .santa {
+            position: fixed;
+            width: var(--santa-base-width);
+            height: var(--santa-base-height);
+            animation: santaFly 20s linear infinite;
+            z-index: 1000;
+            will-change: transform;
+        }
+
+        .santa img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform-origin: center;
+        }
+
+        .star {
+            position: fixed;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 1s ease-in-out infinite;
+            will-change: opacity;
+        }
+
+        .snowflake {
+            position: fixed;
+            color: #fff;
+            font-size: clamp(1em, 2vw, 1.5em);
+            animation: fall linear infinite;
+            text-shadow: 0 0 clamp(3px, 1vw, 5px) rgba(255, 255, 255, 0.8);
+            will-change: transform;
+        }
+
+        .gift {
+            position: fixed;
+            width: var(--gift-size);
+            height: var(--gift-size);
+            animation: giftFall linear forwards;
+            z-index: 999;
+            will-change: transform;
+        }
+
+        @keyframes santaFly {
+            0% {
+                transform: translateX(-100%) translateY(clamp(0px, 0vh, 0px));
+                left: 0;
+            }
+            100% {
+                transform: translateX(100vw) translateY(clamp(-50px, -5vh, -30px));
+                left: 100%;
+            }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        @keyframes giftFall {
+            to {
+                transform: translateY(120vh);
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .greeting span,
+            .santa,
+            .star,
+            .snowflake,
+            .gift {
+                animation: none;
+            }
+        }
+
+        @supports not (height: 100dvh) {
+            body {
+                height: 100vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .countdown {
+                padding: 8px;
+            }
+            
+            .countdown .timer {
+                gap: 5px;
+            }
+            
+            .countdown .digit {
+                min-width: 25px;
+                padding: 5px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="moon"></div>
+    <div class="santa">
+        <img src="santa.gif" alt="Santa's Sleigh" loading="eager" fetchpriority="high">
+    </div>
+    <div class="share-container">
+        <button class="share-btn facebook" onclick="shareOnFacebook()">
+            <img src="facebook.png" alt="Share on Facebook">
+        </button>
+        <button class="share-btn twitter" onclick="shareOnTwitter()">🐦</button>
+        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()">
+            <img src="whatsapp.png" alt="Share on WhatsApp">
+        </button>
+        <button class="share-btn telegram" onclick="shareOnTelegram()">
+            <img src="telegram.png" alt="Share on Telegram">
+        </button>
+    </div>
+    <button class="make-yours-btn" onclick="window.location.href='?name=' + prompt('Enter your name:')">✨ Make Magic! ✨</button>
+    <div class="greeting-container">
+        <h1 class="greeting"></h1>
+        <div class="countdown"></div>
+    </div>
+    <script>
+        // Performance optimization
+        const RAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+        
+        // Get name from URL parameters and create animated greeting
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name') || 'Friend';
+        const greetingText = `${name}\nWishes You\nHappy Christmas!`;
+        
+        function createAnimatedGreeting() {
+            const greetingElement = document.querySelector('.greeting');
+            greetingElement.innerHTML = ''; // Clear existing content
+            
+            const lines = greetingText.split('\n');
+            lines.forEach((line, lineIndex) => {
+                if (lineIndex > 0) {
+                    greetingElement.appendChild(document.createElement('br'));
+                }
+                
+                line.split('').forEach((letter, index) => {
+                    const span = document.createElement('span');
+                    span.textContent = letter;
+                    span.style.animationDelay = `${(lineIndex * line.length + index) * 0.1}s`;
+                    greetingElement.appendChild(span);
+                });
+            });
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const christmas = new Date(now.getFullYear(), 11, 25); // Month is 0-based, so 11 is December
+            
+            if (now > christmas) {
+                christmas.setFullYear(christmas.getFullYear() + 1);
+            }
+            
+            const diff = christmas - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.querySelector('.countdown').innerHTML = 
+                `<div>Time Until Christmas</div>` +
+                `<div class="timer">` +
+                `<span class="digit">${String(days).padStart(2, '0')}</span>` +
+                `<span class="separator">:</span>` +
+                `<span class="digit">${String(hours).padStart(2, '0')}</span>` +
+                `<span class="separator">:</span>` +
+                `<span class="digit">${String(minutes).padStart(2, '0')}</span>` +
+                `<span class="separator">:</span>` +
+                `<span class="digit">${String(seconds).padStart(2, '0')}</span>` +
+                `</div>`;
+        }
+
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`${name} wishes you a Magical Christmas! 🎄✨`);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+        }
+
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`${name} wishes you a Magical Christmas! 🎄✨`);
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+        }
+
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`${name} wishes you a Magical Christmas! 🎄✨\n${window.location.href}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
+
+        function shareOnTelegram() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`${name} wishes you a Magical Christmas! 🎄✨`);
+            window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+        }
+
+        const createElements = (count, callback) => {
+            const fragment = document.createDocumentFragment();
+            for (let i = 0; i < count; i++) {
+                fragment.appendChild(callback(i));
+            }
+            document.body.appendChild(fragment);
+        };
+
+        function createStars() {
+            createElements(100, () => {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = `${Math.random() * 3}px`;
+                star.style.cssText = `
+                    width: ${size};
+                    height: ${size};
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation-delay: ${Math.random()}s;
+                `;
+                return star;
+            });
+        }
+
+        function createSnowflakes() {
+            const snowflakeChars = ['❄', '❅', '❆'];
+            createElements(50, () => {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                snowflake.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    animation-duration: ${Math.random() * 3 + 2}s;
+                `;
+                return snowflake;
+            });
+        }
+
+        function dropGift() {
+            const gift = document.createElement('div');
+            gift.className = 'gift';
+            gift.textContent = '🎁';
+            gift.style.cssText = `
+                left: ${Math.random() * 90}%;
+                animation-duration: 4s;
+            `;
+            document.body.appendChild(gift);
+            
+            gift.addEventListener('animationend', () => {
+                gift.remove();
+            }, { once: true });
+        }
+
+        // Update initialization to include greeting animation and countdown
+        function initializeAndHandleResize() {
+            let resizeTimeout;
+            
+            function init() {
+                document.querySelectorAll('.star, .snowflake').forEach(el => el.remove());
+                createStars();
+                createSnowflakes();
+                // Recreate greeting animation if needed
+                const greetingElement = document.querySelector('.greeting');
+                if (!greetingElement.children.length) {
+                    createAnimatedGreeting();
+                }
+            }
+
+            // Handle resize with debouncing
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(init, 250);
+            }, { passive: true });
+
+            // Handle visibility change
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    init();
+                }
+            });
+
+            init();
+            setInterval(dropGift, 2000);
+            
+            // Start countdown
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        // Start when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeAndHandleResize);
+        } else {
+            initializeAndHandleResize();
+        }
+    </script>
+</body>
+</html>

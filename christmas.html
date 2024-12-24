@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ A Magical Christmas Tale ✨</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .story-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: none;
+            animation: fadeIn 1s ease-in;
+            transform-style: preserve-3d;
+            transform: rotateX(10deg);
+        }
+
+        .santa-container {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            display: none;
+        }
+
+        .santa-sleigh {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            font-size: 60px;
+            transform-style: preserve-3d;
+            animation: santaFlyIn 6s forwards;
+        }
+
+        .santa-message {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            text-align: center;
+            color: #ff4d4d;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff4d4d;
+            opacity: 0;
+            animation: messageAppear 2s forwards;
+            animation-delay: 3s;
+        }
+
+        @keyframes santaFlyIn {
+            0% {
+                left: -100%;
+                transform: translateZ(0) rotateY(0);
+            }
+            40% {
+                left: 50%;
+                transform: translateZ(200px) rotateY(0);
+            }
+            60% {
+                left: 50%;
+                transform: translateZ(200px) rotateY(0);
+            }
+            100% {
+                left: 150%;
+                transform: translateZ(0) rotateY(-180deg);
+            }
+        }
+
+        @keyframes messageAppear {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #ff4d4d; }
+            50% { box-shadow: 0 0 20px #ff4d4d; }
+            100% { box-shadow: 0 0 5px #ff4d4d; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes floatIn {
+            0% { transform: translateY(50px) translateZ(50px); opacity: 0; }
+            100% { transform: translateY(0) translateZ(50px); opacity: 1; }
+        }
+
+        .input-container {
+            margin-bottom: 30px;
+            text-align: center;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: floatIn 1s ease-out;
+            transform-style: preserve-3d;
+            transform: translateZ(50px);
+        }
+
+        input {
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 25px;
+            border: 2px solid #ff4d4d;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+            width: 250px;
+            animation: glow 2s infinite;
+            transform-style: preserve-3d;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            border: none;
+            background: linear-gradient(45deg, #ff4d4d, #ff8c00);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-left: 10px;
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+            animation: pulse 2s infinite;
+            transform-style: preserve-3d;
+        }
+
+        .share-button {
+            margin-top: 20px;
+            background: linear-gradient(45deg, #4267B2, #3b5998);
+            font-weight: bold;
+            animation: shareButtonPulse 2s infinite;
+        }
+
+        @keyframes shareButtonPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes santaFly {
+            0% { 
+                transform: translateX(0) translateY(0) rotateY(0deg);
+                left: -100%;
+            }
+            50% { 
+                transform: translateX(100vw) translateY(-50px) rotateY(180deg);
+                left: 100%;
+            }
+            100% { 
+                transform: translateX(0) translateY(0) rotateY(360deg);
+                left: -100%;
+            }
+        }
+
+        .snowflake {
+            position: absolute;
+            color: #fff;
+            font-size: 1.5em;
+            animation: fall linear infinite, twinkle 2s ease-in-out infinite;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.4; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="snowflakes" id="snowflakes"></div>
+    
+    <div class="santa-container" id="santaContainer">
+        <div class="santa-sleigh">🎅🛷</div>
+        <div class="santa-message" id="santaMessage"></div>
+    </div>
+
+    <form action="mains.html" method="GET">
+        <div class="input-container">
+            <input type="text" id="nameInput" name="name" placeholder="✨ Enter your name ✨">
+            <button type="submit">🎄 Begin 🎄</button>
+        </div>
+    </form>
+
+    <div class="story-container" id="storyContainer">
+        <h1 class="story-title">Winter Magic</h1>
+        <div id="storyContent"></div>
+        <button class="share-button" onclick="shareStory()">🎁 Share 🎁</button>
+    </div>
+
+    <script>
+        // Create snowflakes
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakeChars = ['❄', '❅', '❆', '✧', '✦'];
+            const numberOfSnowflakes = 50;
+
+            for (let i = 0; i < numberOfSnowflakes; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                snowflake.style.opacity = Math.random();
+                snowflake.innerHTML = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+
+        // Initialize snowflakes
+        createSnowflakes();
+
+        function shareStory() {
+            const name = new URLSearchParams(window.location.search).get('name');
+            const shareText = `Experience the magic of Christmas with ${name}'s personalized holiday tale! ✨🎄`;
+            const shareUrl = window.location.href;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'A Magical Christmas Tale',
+                    text: shareText,
+                    url: shareUrl
+                }).catch(console.error);
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const tempInput = document.createElement('input');
+                document.body.appendChild(tempInput);
+                tempInput.value = shareUrl;
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                alert('Link copied to clipboard! Share it with your friends! 🎁');
+            }
+        }
+    </script>
+</body>
+</html>
