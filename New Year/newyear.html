@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Send personalized New Year 2025 wishes to your loved ones">
+    <title>New Year Wishes 2025 | Send Personalized Greetings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #000428, #004e92);
+            --accent-gradient: linear-gradient(45deg, #FFD700, #FFA500);
+            --text-primary: #ffffff;
+            --glass-effect: rgba(255, 255, 255, 0.1);
+            --transition-smooth: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            background: var(--primary-gradient);
+            font-family: 'Poppins', system-ui, sans-serif;
+            color: var(--text-primary);
+            display: grid;
+            place-items: center;
+            overflow-x: hidden;
+            padding: 1rem;
+        }
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            perspective: 1000px;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #FFD700;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.2; }
+            to { opacity: 1; }
+        }
+
+        .greeting-container {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.5);
+            padding: clamp(1.2rem, 4vw, 2.5rem);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            max-width: 600px; /* Reduced from 800px */
+            width: 100%;
+            margin: 1rem auto;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .greeting {
+            font-size: clamp(1.8rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { filter: brightness(100%); }
+            50% { filter: brightness(150%); }
+            100% { filter: brightness(100%); }
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Reduced from 100px */
+            gap: clamp(0.4rem, 1.5vw, 1.2rem); /* Reduced gaps */
+            margin: 1.5rem 0; /* Reduced from 2rem */
+        }
+
+        .time-block {
+            background: var(--glass-effect);
+            padding: clamp(0.8rem, 2.5vw, 1.2rem); /* Reduced padding */
+            border-radius: 12px; /* Reduced from 15px */
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .time-block:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        .digits {
+            font-size: clamp(1.2rem, 3.5vw, 2.5rem); /* Reduced font sizes */
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .label {
+            font-size: clamp(0.7rem, 1.8vw, 0.9rem); /* Reduced font sizes */
+            opacity: 0.9;
+            text-transform: uppercase;
+            margin-top: 0.4rem; /* Reduced from 0.5rem */
+        }
+
+        .btn {
+            background: var(--accent-gradient);
+            color: #000428;
+            border: none;
+            padding: clamp(0.6rem, 1.8vw, 0.8rem) clamp(1.2rem, 2.5vw, 1.8rem); /* Reduced padding */
+            border-radius: 25px; /* Reduced from 30px */
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            font-size: clamp(0.8rem, 1.8vw, 1rem); /* Reduced font sizes */
+            width: 100%;
+            max-width: 250px; /* Reduced from 300px */
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .share-container {
+            display: flex;
+            gap: clamp(0.6rem, 1.8vw, 1.2rem); /* Reduced gap */
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem; /* Reduced from 2rem */
+        }
+
+        .make-wish-btn {
+            background: var(--glass-effect);
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            padding: clamp(0.6rem, 1.8vw, 0.8rem) clamp(1.2rem, 2.5vw, 1.8rem); /* Reduced padding */
+            border-radius: 25px; /* Reduced from 30px */
+            cursor: pointer;
+            font-size: clamp(0.9rem, 2.2vw, 1.1rem); /* Reduced font sizes */
+            margin-bottom: 1.2rem; /* Reduced from 1.5rem */
+            transition: var(--transition-smooth);
+            width: 100%;
+            max-width: 250px; /* Reduced from 300px */
+        }
+
+        .make-wish-btn:hover {
+            background: #FFD700;
+            color: #000428;
+        }
+
+        @media (max-width: 480px) {
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem; /* Reduced from 0.8rem */
+            }
+            
+            .share-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.6rem; /* Reduced from 0.8rem */
+            }
+
+            .greeting-container {
+                padding: 0.8rem; /* Reduced from 1rem */
+            }
+        }
+
+        @media (max-width: 350px) {
+            .countdown {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .star,
+            .time-block,
+            .btn,
+            .make-wish-btn {
+                animation: none;
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" aria-hidden="true"></div>
+    
+    <main class="greeting-container">
+        <button class="make-wish-btn" onclick="window.location.href='?name=' + prompt('Enter your name to create your personalized wish:')">
+            ✨ Create Your Wish ✨
+        </button>
+        <h1 class="greeting"></h1>
+        <div class="countdown" role="timer" aria-label="Countdown to New Year 2025">
+            <div class="time-block">
+                <div class="digits" id="days">00</div>
+                <div class="label">Days</div>
+            </div>
+            <div class="time-block">
+                <div class="digits" id="hours">00</div>
+                <div class="label">Hours</div>
+            </div>
+            <div class="time-block">
+                <div class="digits" id="minutes">00</div>
+                <div class="label">Minutes</div>
+            </div>
+            <div class="time-block">
+                <div class="digits" id="seconds">00</div>
+                <div class="label">Seconds</div>
+            </div>
+        </div>
+        
+        <div class="share-container">
+            <button class="btn" onclick="share('facebook')">Share on Facebook</button>
+            <button class="btn" onclick="share('whatsapp')">Share on WhatsApp</button>
+            <button class="btn" onclick="share('twitter')">Share on Twitter</button>
+        </div>
+    </main>
+
+    <script>
+        const STAR_COUNT = 300;
+        let rafId = null;
+
+        function createStars() {
+            const container = document.querySelector('.stars');
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 0; i < STAR_COUNT; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                fragment.appendChild(star);
+            }
+
+            container.appendChild(fragment);
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const newYear = new Date(2025, 0, 1);
+            const diff = newYear - now;
+
+            const times = {
+                days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+                seconds: Math.floor((diff % (1000 * 60)) / 1000)
+            };
+
+            Object.entries(times).forEach(([unit, value]) => {
+                document.getElementById(unit).textContent = String(value).padStart(2, '0');
+            });
+
+            rafId = requestAnimationFrame(updateCountdown);
+        }
+
+        function share(platform) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name') || 'Someone';
+            const text = encodeURIComponent(`🎉 ${name} has sent you special New Year 2025 wishes! Click to view their message 🎊`);
+            const url = encodeURIComponent(window.location.href);
+            const urls = {
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+                whatsapp: `https://wa.me/?text=${text} ${url}`,
+                twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`
+            };
+            window.open(urls[platform], '_blank', 'noopener,noreferrer');
+        }
+
+/*************  ✨ Codeium Command ⭐  *************/
+/**
+ * Updates the greeting element with a personalized New Year message.
+ * Retrieves the user's name from the URL parameters, defaults to 'Friend' if not provided,
+ * and sets the greeting element's text content to wish the user a Happy New Year 2025.
+ */
+
+/******  3a908518-edc7-4444-80a7-7bf6d5730e99  *******/
+        function updateGreeting() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name') || 'Friend';
+            const wishes = [
+                "May your dreams take flight in 2025! 🌟",
+                "Wishing you joy, success & prosperity! ✨",
+                "Here's to new beginnings & endless possibilities! 🎊"
+            ];
+            const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+            document.querySelector('.greeting').innerHTML = `
+                <div>${name}'s New Year Wish</div>
+                <div style="font-size: 0.7em; margin-top: 1rem">${randomWish}</div>
+            `;
+        }
+
+        function init() {
+            createStars();
+            updateCountdown();
+            updateGreeting();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(rafId);
+            } else {
+                updateCountdown();
+            }
+        });
+    </script>
+</body>
+</html>
